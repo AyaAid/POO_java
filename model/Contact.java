@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Contact {
+public class Contact{
     private static final String SEPARATEUR = ";";
     private String nom;
     private String prenom;
@@ -70,9 +70,8 @@ public class Contact {
         }
     }
 
-    public String getDateNaissance() {
-        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-        return f.format(dateNaissance);
+    public Date getDateNaissance() {
+        return dateNaissance;
     }
 
     public void setDateNaissance(String dateNaissance) throws ParseException{
@@ -121,24 +120,19 @@ public class Contact {
     @Override
     public String toString(){
         StringBuilder build = new StringBuilder();
-        build.append(this.getPrenom());
-        build.append(SEPARATEUR);
         build.append(this.getNom());
+        build.append(SEPARATEUR);
+        build.append(this.getPrenom());
         build.append(SEPARATEUR);
         build.append(this.getMail());
         build.append(SEPARATEUR);
         build.append(this.getTelephone());
         build.append(SEPARATEUR);
-        build.append(this.getDateNaissance());
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        build.append(f.format(getDateNaissance()));
         return build.toString();
     }
 
-    public static Comparator<Contact> ComparatorDateNaissance = new Comparator<Contact>() {
- 
-        @Override
-        public int compare(Contact c1, Contact c2) {
-        return c1.getDateNaissance().compareTo(c2.getDateNaissance());
-        }
-        };
+    
     
 }

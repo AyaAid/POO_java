@@ -2,12 +2,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
+import compare.Compare;
 
-import static model.Contact.ComparatorDateNaissance;
+
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -52,10 +54,12 @@ public class App {
     }
 
    private static void trierDateNaissance() throws IOException {
+        Compare compare = new Compare();
         ArrayList<Contact> liste = Contact.lister();
-        Collections.sort(liste, ComparatorDateNaissance);
+        Collections.sort(liste, compare);
         try(PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("contacts.csv", false)))){
             for(Contact contact : liste){
+                System.out.println(contact);
                 pw.println(contact.toString());
             }
         }catch (Exception e) {
@@ -104,8 +108,9 @@ public class App {
 
                     while(true){
                         try{
+                            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
                             System.out.println("Saisir date de naissance");
-                            System.out.println(contact.getDateNaissance());
+                            System.out.println(f.format(contact.getDateNaissance()));
                             contact.setDateNaissance(scanner.nextLine());
                             break;
                         } catch(ParseException e){
@@ -113,15 +118,12 @@ public class App {
                         }
                     }
                     
-                }else{
-                    System.out.println("Le contact ne se trouve pas dans le répertoire");
-                    return;}
+                }
                     pw.println(contact.toString());
             }
         }catch (Exception e) {
             System.out.println("Erreur pour modifier le contact");
         }
-        
         System.out.println("Contact Modifié");
 
     }
