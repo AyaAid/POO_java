@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
+import java.util.stream.Stream;
+
 import compare.Compare;
-
-
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -37,13 +37,17 @@ public class App {
                 supprimerContact(scanner.nextLine());
                 break;
             case "5":
+                trierNom();
                 break;
             case "6":
                 trierDateNaissance();
                 break;
             case "7":
+                // trierMail();
                 break;
             case "8":
+                System.out.println("Prenom recherché ?");
+                rechercheParPrenom(scanner.nextLine());
                 break;
             case "q" :
                 return;
@@ -53,7 +57,30 @@ public class App {
         }
     }
 
-   private static void trierDateNaissance() throws IOException {
+ private static void rechercheParPrenom(String prenom) throws IOException{
+    ArrayList<Contact> liste = Contact.lister();
+
+    List<Contact> contactRecherche = liste.stream()
+            .filter((contact) -> contact.getPrenom().startsWith(prenom))
+            .toList();
+    System.out.println(contactRecherche);
+}
+
+ private static void trierNom() throws IOException {
+    ArrayList<Contact> liste = Contact.lister();
+    Collections.sort(liste, Contact.ComparatorNom);
+    try(PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("contacts.csv", false)))){
+    for(Contact contact : liste){
+        System.out.println(contact);
+        pw.println(contact.toString());
+    }
+}
+    
+    }
+
+
+
+ private static void trierDateNaissance() throws IOException {
         Compare compare = new Compare();
         ArrayList<Contact> liste = Contact.lister();
         Collections.sort(liste, compare);

@@ -13,8 +13,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import compare.Compare;
 
-public class Contact{
+
+public class Contact implements Comparable<Contact>{
     private static final String SEPARATEUR = ";";
     private String nom;
     private String prenom;
@@ -115,7 +117,19 @@ public class Contact{
         }
         return list;
     }
+   
+    public static Comparator<Contact> ComparatorNom = new Comparator<Contact>(){
+        @Override
+        public int compare(Contact c1, Contact c2){
+            return c1.getNom().toLowerCase().compareTo(c2.getNom().toLowerCase());
+        };
+    };
 
+
+    @Override
+    public int compareTo(Contact c) {
+        return this.getNom().compareTo(c.getNom());
+    };
 
     @Override
     public String toString(){
@@ -134,5 +148,6 @@ public class Contact{
     }
 
     
-    
 }
+    
+
