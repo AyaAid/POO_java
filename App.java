@@ -1,8 +1,14 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
+
+import static model.Contact.ComparatorDateNaissance;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import model.Contact;
@@ -31,6 +37,7 @@ public class App {
             case "5":
                 break;
             case "6":
+                trierDateNaissance();
                 break;
             case "7":
                 break;
@@ -44,7 +51,20 @@ public class App {
         }
     }
 
-    private static void modifierContact(String mail) throws IOException{
+   private static void trierDateNaissance() throws IOException {
+        ArrayList<Contact> liste = Contact.lister();
+        Collections.sort(liste, ComparatorDateNaissance);
+        try(PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("contacts.csv", false)))){
+            for(Contact contact : liste){
+                pw.println(contact.toString());
+            }
+        }catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+ private static void modifierContact(String mail) throws IOException{
         ArrayList<Contact> liste = Contact.lister();
         try(PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("contacts.csv", false)))){
             for(Contact contact : liste){

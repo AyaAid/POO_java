@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -107,7 +108,7 @@ public class Contact {
                 list.add(c);
             }
         } catch (ParseException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ligne vide");
         } catch (IOException e) {
             System.out.println("Mauvaise lecture du fichier");
         } finally {
@@ -115,7 +116,7 @@ public class Contact {
         }
         return list;
     }
-    
+
 
     @Override
     public String toString(){
@@ -131,4 +132,13 @@ public class Contact {
         build.append(this.getDateNaissance());
         return build.toString();
     }
+
+    public static Comparator<Contact> ComparatorDateNaissance = new Comparator<Contact>() {
+ 
+        @Override
+        public int compare(Contact c1, Contact c2) {
+        return c1.getDateNaissance().compareTo(c2.getDateNaissance());
+        }
+        };
+    
 }
