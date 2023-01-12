@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
@@ -58,12 +59,12 @@ public class App {
     }
 
  private static void rechercheParPrenom(String prenom) throws IOException{
-    ArrayList<Contact> liste = Contact.lister();
+    ArrayList<Contact> list = Contact.lister();
 
-    List<Contact> contactRecherche = liste.stream()
-            .filter((contact) -> contact.getPrenom().startsWith(prenom))
-            .toList();
-    System.out.println(contactRecherche);
+    List<Contact> contactRecherche = list.stream()
+        .filter((contact) -> contact.getPrenom().startsWith(prenom))
+        .toList();
+    System.out.println(contactRecherche);   
 }
 
  private static void trierNom() throws IOException {
