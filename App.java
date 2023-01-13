@@ -56,7 +56,9 @@ public class App {
                 System.out.println("...");
                 break;
         }
+        afficherMenu();
     }
+
 
     private static void trierMail() throws IOException{
         try{
@@ -67,7 +69,8 @@ public class App {
                 return c1.getMail().compareTo(c2.getMail());
             }
     });
-        System.out.println(list.toString());}
+        String str = list.toString().replaceAll(",", "\n").replaceAll(";", " ");
+        System.out.println(str);}
         catch (IOException e){
             System.out.println(e);
         }
@@ -87,7 +90,7 @@ public class App {
     Collections.sort(liste, Contact.ComparatorNom);
     try(PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("contacts.csv", false)))){
     for(Contact contact : liste){
-        System.out.println(contact);
+        System.out.println(contact.toString().replaceAll(";", " "));
         pw.println(contact.toString());
     }
 }
@@ -102,7 +105,7 @@ public class App {
         Collections.sort(liste, compare);
         try(PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("contacts.csv", false)))){
             for(Contact contact : liste){
-                System.out.println(contact);
+                System.out.println(contact.toString().replaceAll(";", " "));
                 pw.println(contact.toString());
             }
         }catch (Exception e) {
