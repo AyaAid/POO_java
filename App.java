@@ -44,7 +44,8 @@ public class App {
                 trierDateNaissance();
                 break;
             case "7":
-                // trierMail();
+                System.out.println("bla");
+                trierMail();
                 break;
             case "8":
                 System.out.println("Prenom recherché ?");
@@ -58,7 +59,23 @@ public class App {
         }
     }
 
- private static void rechercheParPrenom(String prenom) throws IOException{
+    private static void trierMail() throws IOException{
+        try{
+        ArrayList<Contact> list = Contact.lister();
+        System.out.println("yo");
+        Collections.sort(list, new Comparator<Contact>(){
+            @Override
+            public int compare(Contact c1, Contact c2) {
+                return c1.getMail().compareTo(c2.getMail());
+            }
+    });
+        System.out.println(list.toString());}
+        catch (IOException e){
+            System.out.println(e);
+        }
+    }
+
+    private static void rechercheParPrenom(String prenom) throws IOException{
     ArrayList<Contact> list = Contact.lister();
 
     List<Contact> contactRecherche = list.stream()
