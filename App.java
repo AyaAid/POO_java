@@ -44,7 +44,6 @@ public class App {
                 trierDateNaissance();
                 break;
             case "7":
-                System.out.println("bla");
                 trierMail();
                 break;
             case "8":
@@ -62,7 +61,6 @@ public class App {
     private static void trierMail() throws IOException{
         try{
         ArrayList<Contact> list = Contact.lister();
-        System.out.println("yo");
         Collections.sort(list, new Comparator<Contact>(){
             @Override
             public int compare(Contact c1, Contact c2) {
